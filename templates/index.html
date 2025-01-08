@@ -1,134 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!--========== BOX ICONS ==========-->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
-    />
-
-    <!--========== CSS ==========-->
-    <link rel="stylesheet" href="static/css/styles.css" />
-    <!-- Javascript -->
-    <script src="{{ url_for('static', filename='js/jquery_3.6.0.min.js') }}"></script>
-   
-    <title>Deteksi Penyakit Tanaman Cabai dan Tomat</title>
-  </head>
-  <body>
-    <header class="header">
-      <div class="logo">
-  <img src="static/images/umpar.png" alt="">
-<p>UNIVERSITAS MUHAMMADIYAH PAREPARE</p>
-      </div>
-      <i class="bx bx-menu" id="menu-icon"></i>
-      <nav class="navbar">
-        <a href="#Dashboard">Home</a>
-        <a href="#Aplikasi">Deteksi</a>
-        <a href="#">About</a>
-        <a href="#Card">Contact</a>
-      </nav>
-    </header>
-    <div class="nav-bg"></div>
-    <script src="static/js/n.js"></script>
-    <section id="Dashboard" class="dash_container">
-        <div class="konten__glass">
-            <div class="dash__data">
-              <h3 class="dash_title">SELAMAT DATANG</h3>
-              <span class="dash_capt">
-                Tanamanmu adalah bagian penting dari keseharian, 
-                dan Aplikasi ini membantu menjaga mereka tetap sehat. 
-                Dengan teknologi CNN (Convolutional Neural Networks), Kamu 
-                dapat mendeteksi tanda-tanda penyakit pada cabai dan tomat 
-                dengan mudah dan cepat. Mari bersama-sama memastikan tanamanmu 
-                tetap tumbuh dengan baik.
-            </span>
-            </div>
-            <div class="img_group">
-                <img src="static/images/tct.png" alt="" class="img_konten2"/>
-                <img src="static/images/kd3.png" alt="" class="img_konten"/>
-            </div>
-        <div>
-            <a href="#Aplikasi" class="dash__button1">MULAI</a>
-        </div>
-        </div>
-    </section>
-    <section id="Aplikasi" class="app_container">
-      <div class="konten__glass">
-          <div class="dash__data">
-            <h3 class="dash_title">Mulai Deteksi</h3>
-            <img src="{{ url_for('static', filename='images/deteksi.png') }}" width="300">
-            <p class="dash_capt">
-              Silahkan upload sebuah gambar yang menampilkan 
-              kondisi pada bagian daun atau buah 
-          </p>
-          </div>
-
-        <div class="col-sm-6">
-          <!-- Bagian Halaman untuk Hasil Prediksi -->
-          <div id="hasil_prediksi" align="center">
-            <!-- Hasil Prediksi akan ditampilkan di sini-->
-          </div>
-
-          <script src="{{ url_for('static', filename='js/client_side.js') }}"></script>
-          <form style="margin-left: 50px;" method="POST" enctype="multipart/form-data" id="uploadForm">
-            <p>
-                <!-- Tombol untuk membuka file dari galeri -->
-                <input type="file" id="input_gambar" name="file" accept="image/*">
-            </p>
-          </form>
-          <div>
-            <br />
-            <button type="submit" id="prediksi_submit" class="dash__button">PREDIKSI</button> 
-          </div>
-        </div>
-
-      </div>
-  </section>
-  <div id="visualizations" align="center"></div>
-  </body>
-
-  <footer>
-    <section id="Card" class="card">
-      <div class="card__circle card__circle1"></div>
-      <div class="card__circle card__circle2"></div>
-
-      <div class="card__container bd-container">
-        <div class="card__glass">
-          <img src="static/images/profil.jpg" alt="" class="card__img" />
-
-          <div class="card__data">
-            <h3 class="card__title">Ahmad Selao, S.Tp., M.Sc</h3>
-            <span class="card__profession">Pembimbing I</span>
-          </div>
-        </div>
-
-        <div class="card__glass">
-          <img src="static/images/profil.jpg" alt="" class="card__img" />
-
-          <div class="card__data">
-            <h3 class="card__title">Deris Pakiding</h3>
-            <span class="card__profession">Mahasiswa</span>
-          </div>
-
-          <div class="card__social">
-            <a href="https://www.instagram.com/dderpa_07/profilecard/?igsh=MXZhb2xjcTRldHBueg==" class="card__link" target="_blank"><i class="bx bxl-instagram"></i></a>
-            <a href="https://www.linkedin.com/in/deris-pakiding-7575de02" class="card__link" ><i class="bx bxl-linkedin"></i></a>
-          </div>
-        </div>
-
-        <div class="card__glass">
-          <img src="static/images/profil.jpg" alt="" class="card__img" />
-
-          <div class="card__data">
-            <h3 class="card__title">Wahyuddin, S.Kom., M.Kom.</h3>
-            <span class="card__profession">Pembimbing II</span>
-          </div>
-        </div>
-        </div>
-      </div>
-    </section>
-  </footer>
-</html>
+<!DOCTYPE html>  
+<html lang="en">  
+  <head>  
+    <meta charset="UTF-8" />  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  
+    <!--========== BOX ICONS ==========-->  
+    <link  
+      rel="stylesheet"  
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"  
+    />  
+  
+    <!--========== CSS ==========-->  
+    <link rel="stylesheet" href="static/css/styles.css" />  
+    <!-- Javascript -->  
+    <script src="{{ url_for('static', filename='js/jquery_3.6.0.min.js') }}"></script>  
+     
+    <title>Deteksi Penyakit Tanaman Cabai dan Tomat</title>  
+  </head>  
+  <body>  
+    <header class="header">  
+      <div class="logo">  
+        <img src="static/images/umpar.png" alt="">  
+        <p>UNIVERSITAS MUHAMMADIYAH PAREPARE</p>  
+      </div>  
+      <i class="bx bx-menu" id="menu-icon"></i>  
+      <nav class="navbar">  
+        <a href="#Dashboard">Home</a>  
+        <a href="#Aplikasi">Deteksi</a>  
+        <a href="#">About</a>  
+        <a href="#Card">Contact</a>  
+      </nav>  
+    </header>  
+    <div class="nav-bg"></div>  
+    <script src="static/js/n.js"></script>  
+    <section id="Dashboard" class="dash_container">  
+        <div class="konten__glass">  
+            <div class="dash__data">  
+              <h3 class="dash_title">SELAMAT DATANG</h3>  
+              <span class="dash_capt">  
+                Tanamanmu adalah bagian penting dari keseharian,   
+                dan Aplikasi ini membantu menjaga mereka tetap sehat.   
+                Dengan teknologi CNN (Convolutional Neural Networks), Kamu   
+                dapat mendeteksi tanda-tanda penyakit pada cabai dan tomat   
+                dengan mudah dan cepat. Mari bersama-sama memastikan tanamanmu   
+                tetap tumbuh dengan baik.  
+            </span>  
+            </div>  
+            <div class="img_group">  
+                <img src="static/images/tct.png" alt="" class="img_konten2"/>  
+                <img src="static/images/kd3.png" alt="" class="img_konten"/>  
+            </div>  
+        <div>  
+            <a href="#Aplikasi" class="dash__button1">MULAI</a>  
+        </div>  
+        </div>  
+    </section>  
+    <section id="Aplikasi" class="app_container">  
+      <div class="konten__glass">  
+          <div class="dash__data">  
+            <h3 class="dash_title">Mulai Deteksi</h3>  
+            <img src="{{ url_for('static', filename='images/deteksi.png') }}" width="300">  
+            <p class="dash_capt">  
+              Silahkan upload sebuah gambar yang menampilkan   
+              kondisi pada bagian daun atau buah   
+          </p>  
+          </div>  
+  
+        <div class="col-sm-6">  
+          <!-- Bagian Halaman untuk Hasil Prediksi -->  
+          <div id="hasil_prediksi" align="center">  
+            <!-- Hasil Prediksi akan ditampilkan di sini-->  
+          </div>  
+  
+          <script src="{{ url_for('static', filename='js/client_side.js') }}"></script>  
+          <form style="margin-left: 50px;" method="POST" enctype="multipart/form-data" id="uploadForm">  
+            <p>  
+                <!-- Tombol untuk membuka file dari galeri -->  
+                <input type="file" id="input_gambar" name="file" accept="image/*">  
+            </p>  
+          </form>  
+          <div>  
+            <br />  
+            <button type="submit" id="prediksi_submit" class="dash__button">PREDIKSI</button>   
+            <!-- Tambahkan tombol Detail Penyakit -->  
+            <button type="button" id="detail_penyakit" class="dash__button" style="margin-left: 10px;" disabled>Detail Penyakit</button>  
+          </div>  
+        </div>  
+  
+      </div>  
+  </section>  
+  <div id="visualizations" align="center"></div>  
+  
+  <!-- Modal Penjelasan Penyakit -->  
+  <div id="myModal" class="modal">  
+    <div class="modal-content">  
+      <span class="close">&times;</span>  
+      <h2 id="penyakit-title" class="center-text"></h2>  
+      <img id="penyakit-image" class="center-image" src="" alt="Gambar Penyakit" width="150">  
+      <p id="penyakit-description" class="center-text"></p>  
+    </div>  
+  </div>    
+  
+  </body>  
+  
+  <footer>  
+    <section id="Card" class="card">  
+      <div class="card__circle card__circle1"></div>  
+      <div class="card__circle card__circle2"></div>  
+  
+      <div class="card__container bd-container">  
+        <div class="card__glass">  
+          <img src="static/images/profil.jpg" alt="" class="card__img" />  
+  
+          <div class="card__data">  
+            <h3 class="card__title">Ahmad Selao, S.Tp., M.Sc</h3>  
+            <span class="card__profession">Pembimbing I</span>  
+          </div>  
+        </div>  
+  
+        <div class="card__glass">  
+          <img src="static/images/profil.jpg" alt="" class="card__img" />  
+  
+          <div class="card__data">  
+            <h3 class="card__title">Deris Pakiding</h3>  
+            <span class="card__profession">Mahasiswa</span>  
+          </div>  
+  
+          <div class="card__social">  
+            <a href="https://www.instagram.com/dderpa_07/profilecard/?igsh=MXZhb2xjcTRldHBueg==" class="card__link" target="_blank"><i class="bx bxl-instagram"></i></a>  
+            <a href="https://www.linkedin.com/in/deris-pakiding-7575de02" class="card__link" ><i class="bx bxl-linkedin"></i></a>  
+          </div>  
+        </div>  
+  
+        <div class="card__glass">  
+          <img src="static/images/profil.jpg" alt="" class="card__img" />  
+  
+          <div class="card__data">  
+            <h3 class="card__title">Wahyuddin, S.Kom., M.Kom.</h3>  
+            <span class="card__profession">Pembimbing II</span>  
+          </div>  
+        </div>  
+        </div>  
+      </div>  
+    </section>  
+  </footer>  
+</html>  

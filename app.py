@@ -156,5 +156,5 @@ def process_image():
 model = make_model(n_classes=n_classes)
 model.load_weights("./model_penyakit_tanaman7.h5")  # Sesuaikan jalur ke file model
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == '__main__':  
+    app.run(host='0.0.0.0', debug=True)  
