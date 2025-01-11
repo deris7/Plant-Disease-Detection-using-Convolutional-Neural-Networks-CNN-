@@ -51,7 +51,9 @@ img {
   max-width: 100%;
   height: auto;
 }
-
+#visualization {
+  width: 100%;
+}
 .bd-container {
   max-width: 968px;
   width: calc(100% - 3rem);

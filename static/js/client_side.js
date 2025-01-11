@@ -191,7 +191,7 @@ $(document).ready(function () {
   }
   // Fungsi untuk menampilkan visualisasi activations
   function display_visualizations(visualizations) {
-    var visualizationsHTML = "<h3>Visualisasi Aktivasi Model</h3>";
+    var visualizationsHTML = "<h3>Visualisasi Layers Conv2D Model</h3>";
 
     for (var layerName in visualizations) {
       var encodedImage = visualizations[layerName];
@@ -199,7 +199,7 @@ $(document).ready(function () {
       visualizationsHTML +=
         "<img src='data:image/png;base64," +
         encodedImage +
-        "' width='300' /> <br>";
+        "' width='900' height='600' /> <br>";
     }
 
     $("#visualizations").html(visualizationsHTML);

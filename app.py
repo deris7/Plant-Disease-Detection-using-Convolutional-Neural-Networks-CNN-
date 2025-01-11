@@ -22,7 +22,7 @@ import base64
 
 app = Flask(__name__, static_url_path='/static')
 
-app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 6* 1024 * 1024
 app.config['UPLOAD_EXTENSIONS']  = ['.jpg', '.JPG','.jpeg','.png']
 app.config['UPLOAD_PATH']        = './static/images/uploads/'
 
@@ -96,6 +96,7 @@ def apiDeteksi():
                 "confidence": confidence_score,
                 "gambar_prediksi": gambar_prediksi
             })
+        
 @app.route('/process', methods=['POST'])
 def process_image():
     uploaded_file = request.files['file']
@@ -108,47 +109,38 @@ def process_image():
         image_array = np.expand_dims(image_array, axis=0) / 255.0
 
         # Get model predictions and intermediate layer outputs
-        layer_outputs = [layer.output for layer in model.layers if 'conv2d' in layer.name or 'dense' in layer.name]
-        activation_model = tf.keras.models.Model(inputs=model.input, outputs=layer_outputs)
+        conv_layer_outputs = [layer.output for layer in model.layers if 'conv2d' in layer.name]
+        activation_model = tf.keras.models.Model(inputs=model.input, outputs=conv_layer_outputs)
         activations = activation_model.predict(image_array)
 
         # Prepare visualization data
-        visualizations = {}
-        for i, activation in enumerate(activations):
-            layer_name = model.layers[i].name
-            if len(activation.shape) == 4:  # Conv2D layer
-                # Compute mean activation for heatmap
-                mean_activation = np.mean(activation[0], axis=-1)
-                plt.imshow(mean_activation, cmap='viridis')
-                plt.title(f'{layer_name} Activations')
+        layer_names = [layer.name for layer in model.layers if 'conv2d' in layer.name]
+        num_layers = len(layer_names)
 
-                # Save the plot to a string
-                buf = io.BytesIO()
-                plt.savefig(buf, format='png')
-                buf.seek(0)
-                encoded_image = base64.b64encode(buf.read()).decode('utf-8')
-                buf.close()
-                plt.close()
+        # Create a single figure for all Conv2D visualizations in one horizontal row
+        fig, axes = plt.subplots(1, num_layers, figsize=(15 * num_layers, 15))  # Significantly larger size
+        if num_layers == 1:  # Handle case for single Conv2D layer
+            axes = [axes]
 
-                visualizations[layer_name] = encoded_image
+        for i, (activation, layer_name) in enumerate(zip(activations, layer_names)):
+            ax = axes[i]
+            mean_activation = np.mean(activation[0], axis=-1)
+            ax.imshow(mean_activation, cmap='viridis')
+            ax.set_title(layer_name, fontsize=10)  # Larger font size for titles
+            ax.axis('off')  # Turn off axes for cleaner look
 
-            elif len(activation.shape) == 2:  # Dense layer
-                # Visualize activation values as a bar chart
-                plt.bar(range(activation.shape[1]), activation[0])
-                plt.title(f'{layer_name} Activations')
+        # Save the entire figure to a string
+        buf = io.BytesIO()
+        plt.tight_layout()
+        plt.savefig(buf, format='png')
+        buf.seek(0)
+        encoded_image = base64.b64encode(buf.read()).decode('utf-8')
+        buf.close()
+        plt.close()
 
-                # Save the plot to a string
-                buf = io.BytesIO()
-                plt.savefig(buf, format='png')
-                buf.seek(0)
-                encoded_image = base64.b64encode(buf.read()).decode('utf-8')
-                buf.close()
-                plt.close()
+        # Return the grid visualization as JSON
+        return jsonify({"visualization": encoded_image})
 
-                visualizations[layer_name] = encoded_image
-
-        # Return visualizations as JSON
-        return jsonify(visualizations)
     return jsonify({"error": "No file uploaded"})
 # =[Main]========================================
 
